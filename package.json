@@ -4,7 +4,6 @@
   "description": "An automated twitter bot that checks covid statistics for Belgium and put them on twitter every day",
   "main": "main.js",
   "scripts": {
-    "start": "node covid-tracker.js"
   },
   "author": "Henrotte Alexandre",
   "license": "ISC",
