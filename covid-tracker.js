@@ -27,3 +27,5 @@ function main() {
 
     twitterBot.tweet(values);
 }
+
+main();
