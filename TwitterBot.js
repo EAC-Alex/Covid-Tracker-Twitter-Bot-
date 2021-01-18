@@ -9,6 +9,7 @@ class twitterBot {
     tweet(values) {
         var text = "Nombre total de cas : " + values.totalCases + " (" + values.newCases + ")\r\n" +
                    "Décès : " + values.totalDeaths + " (" + values.newDeaths + ")\r\n";
+                   text = "b";
         this.twitterModule.post('statuses/update', { status: text }, function(err, data, response) {console.log(data)});
     }
 }
