@@ -3,6 +3,8 @@
 const TwitterBot = require('./TwitterBot.js');
 const DataGetter = require('./DataGetter.js');
 
+// Schedule main function
+
 var schedule = require('node-schedule');
 var everyDayPlanner = schedule.scheduleJob('0 0 10 * * *', main);
 

@@ -1,13 +1,12 @@
 {
   "name": "covidtracker",
   "version": "1.0.0",
-  "description": "",
+  "description": "An automated twitter bot that checks covid statistics for Belgium and put them on twitter every day",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node covid-tracker.js"
   },
-  "author": "",
+  "author": "Henrotte Alexandre",
   "license": "ISC",
   "dependencies": {
     "node-schedule": "^1.3.2",
