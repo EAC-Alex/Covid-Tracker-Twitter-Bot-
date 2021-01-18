@@ -6,7 +6,7 @@ const DataGetter = require('./DataGetter.js');
 // Schedule main function
 
 var schedule = require('node-schedule');
-var everyDayPlanner = schedule.scheduleJob('0 3 23 * * *', main);
+var everyDayPlanner = schedule.scheduleJob('0 9 23 * * *', main);
 
 // Objects instanciation
 
