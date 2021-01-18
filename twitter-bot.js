@@ -1,0 +1,3 @@
+class TwitterBot {
+    constructor()
+}
