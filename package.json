@@ -3,12 +3,10 @@
   "version": "1.0.0",
   "description": "An automated twitter bot that checks covid statistics for Belgium and put them on twitter every day",
   "main": "main.js",
-  "scripts": {
-  },
+  "scripts": {},
   "author": "Henrotte Alexandre",
   "license": "ISC",
   "dependencies": {
-    "node-schedule": "^1.3.2",
     "twit": "^2.2.11",
     "xmlhttprequest": "^1.8.0"
   }
