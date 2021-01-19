@@ -59,6 +59,15 @@ class dataGetter {
         this.parsedData[4] = this.increaseDecreaseFormatText(this.parsedData[4]);
         return this.parsedData[4];
     }
+    getData() {
+        var data = {
+            totalCases : this.getData_totalCases(),
+            newCases : this.getData_newCases(),
+            totalDeaths: this.getData_totalDeaths(),
+            newDeaths : this.getData_newDeaths()
+        }
+        return data;
+    }
 
     updateData() {
         var webRawData = this.httpGet('https://www.worldometers.info/coronavirus/')

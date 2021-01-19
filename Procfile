@@ -1,1 +1,0 @@
-worker: node covid-tracker.js
