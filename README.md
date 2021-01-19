@@ -66,6 +66,10 @@ You need to have Node.js and npm installed on your computer
 
 node covid-tracker.js
 
+## Data source
+
+https://www.worldometers.info/coronavirus/
+
 ### Contact
 
 Henrotte Alexandre - [@Covid_Infos_BE](https://twitter.com/Covid_Infos_BE)
