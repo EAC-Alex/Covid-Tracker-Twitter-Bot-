@@ -27,8 +27,6 @@ This project is an automated twitter bot that checks covid statistics in Belgium
 
 ### Built With
 
-This section should list any major frameworks that you built your project using. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
-
 - [Node.js](https://nodejs.org/)
 
 <!-- GETTING STARTED -->
