@@ -53,7 +53,6 @@ You need to have Node.js and npm installed on your computer
    ````sh
    cd belgium-covid-tracker
    npm install
-   ```sh
    ````
 5. Enter your API keys in `twitter_api_tokens.js`
    ```JS
