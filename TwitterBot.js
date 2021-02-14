@@ -1,4 +1,5 @@
 var twit = require('twit');
+var fs = require('fs');
 var config = require('./twitter_api_tokens.js');
 
 class twitterBot {
@@ -6,11 +7,31 @@ class twitterBot {
         this.twitterModule = new twit(config);
     }
 
-    tweet(values) {
-        var text = "Nombre total de cas : " + values.totalCases + " (" + values.newCases + ")\r\n" +
-                   "Décès : " + values.totalDeaths + " (" + values.newDeaths + ")\r\n";
-                   text="aaa";
-        this.twitterModule.post('statuses/update', { status: text }, function(err, data, response) {console.log(data)});
+
+
+    tweetMedia(mediaPath) {
+        var mediaEncoded = fs.readFileSync(mediaPath, { encoding: 'base64' })
+
+        this.twitterModule.post('media/upload', { media_data: mediaEncoded }, (err, data, response) => {
+            var mediaIdStr = data.media_id_string
+            var meta_params = { media_id: mediaIdStr }
+
+            this.twitterModule.post('media/metadata/create', meta_params, (err, data, response) => {
+                if (!err) {
+                    var params = { status: 'Graphe sur les nouveau cas recensé cette semaine', media_ids: [mediaIdStr] }
+                    this.twitterModule.post('statuses/update', params, (err, data, response) => {
+                        console.log(data)
+                    })
+                }
+            })
+        })
+    }
+
+    tweetText(values) {
+        var params = {
+            status: "Nombre total de cas : " + values.totalCases + " (" + values.newCases + ")\r\n" + "Décès : " + values.totalDeaths + " (" + values.newDeaths + ")\r\n"
+        }
+        this.twitterModule.post('statuses/update', params, function (err, data, response) { console.log(data) });
     }
 }
 
