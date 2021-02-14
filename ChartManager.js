@@ -1,12 +1,13 @@
 const QuickChart = require('quickchart-js');
 const fs = require('fs');
 const request = require('request');
+const getFormattedDate = require('./utils/getFormattedDate');
 
 class ChartManager {
 
     constructor() {
         this.chart = new QuickChart();
-        this.chartSize = { width: 800, height: 600 }
+        this.chartSize = { width: 800, height: 418 }
     }
 
     setSizeChart() {
@@ -18,8 +19,9 @@ class ChartManager {
         return this.chart.getUrl();
     }
 
-    downloadChart() {
-        this.chart.toFile('chart.png');
+    async downloadChart() {
+        var date = getFormattedDate();
+        Promise.resolve(this.chart.toFile(`chart_${date}.png`));
     }
 
     createChart() {
