@@ -6,7 +6,7 @@ class DatabaseManager {
 
     constructor() {
         this.database_uri = `mongodb+srv://Alexandre:${process.env.MONGODB_PASSWORD}@cluster0.h4zyz.mongodb.net/belgium-covid-tracker?retryWrites=true&w=majority`;
-        this.databaseClient = new MongoClient(this.database_uri, { useNewUrlParser: true });
+        this.databaseClient = new MongoClient(this.database_uri, { useNewUrlParser: true, useUnifiedTopology: true });
     }
 
     connect() {
@@ -60,7 +60,7 @@ class DatabaseManager {
                     '$lt': dateEnd
                 }
             }).toArray();
-            console.log(documents)
+            console.log(documents);
             return documents;
 
         } catch (err) {
