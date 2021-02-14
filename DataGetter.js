@@ -3,12 +3,12 @@ var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 class dataGetter {
     parsedData;
 
-    constructor() {}
+    constructor() { }
 
     httpGet(theUrl) {
         var xmlHttp = new XMLHttpRequest();
-        xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
-        xmlHttp.send( null );
+        xmlHttp.open("GET", theUrl, false); // false for synchronous request
+        xmlHttp.send(null);
         return xmlHttp.responseText;
     }
 
@@ -32,39 +32,24 @@ class dataGetter {
         return parsedDataValues;
     }
 
-    increaseDecreaseFormatText(text) {
-        var formattedText;
-
-        if (text[0] == '+') {
-            formattedText = text + " 📈"
-        }
-        else {
-            formattedText = text + " 📉"
-        }
-
-        return formattedText;
-    }
-    
     getData_totalCases() {
         return this.parsedData[1];
     }
     getData_newCases() {
-        this.parsedData[2] = this.increaseDecreaseFormatText(this.parsedData[2]);
         return this.parsedData[2];
     }
     getData_totalDeaths() {
         return this.parsedData[3];
     }
     getData_newDeaths() {
-        this.parsedData[4] = this.increaseDecreaseFormatText(this.parsedData[4]);
         return this.parsedData[4];
     }
     getData() {
         var data = {
-            totalCases : this.getData_totalCases(),
-            newCases : this.getData_newCases(),
+            totalCases: this.getData_totalCases(),
+            newCases: this.getData_newCases(),
             totalDeaths: this.getData_totalDeaths(),
-            newDeaths : this.getData_newDeaths()
+            newDeaths: this.getData_newDeaths()
         }
         return data;
     }
@@ -73,7 +58,7 @@ class dataGetter {
         var webRawData = this.httpGet('https://www.worldometers.info/coronavirus/')
         this.parsedData = this.parseHttpRequest(webRawData);
     }
-    
+
 }
 
 
