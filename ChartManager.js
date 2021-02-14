@@ -2,10 +2,9 @@ const QuickChart = require('quickchart-js');
 
 class ChartManager {
 
-    chartSize = { width: 800, height: 600 }
-
     constructor() {
         this.chart = new QuickChart();
+        this.chartSize = { width: 800, height: 600 }
     }
 
     createChart() {
