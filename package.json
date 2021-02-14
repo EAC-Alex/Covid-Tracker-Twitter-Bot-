@@ -3,10 +3,16 @@
   "version": "1.0.0",
   "description": "An automated twitter bot that checks covid statistics for Belgium and put them on twitter every day",
   "main": "main.js",
-  "scripts": {},
+  "scripts": {
+    "start": "nodemon covid-tracker"
+  },
   "author": "Henrotte Alexandre",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^8.2.0",
+    "mongodb": "^3.6.4",
+    "node-fetch": "^2.6.1",
+    "quickchart-js": "^1.0.6",
     "twit": "^2.2.11",
     "xmlhttprequest": "^1.8.0"
   }
