@@ -12,7 +12,7 @@ class StatisticsManager {
             date: new Date(),
             data: dataCovid
         }
-        databaseManager.insertValue("belgium-covid-tracker", "statistics", statistics);
+        this.databaseManager.insertValue("belgium-covid-tracker", "statistics", statistics);
     }
 
     getWeekStatistics() {
