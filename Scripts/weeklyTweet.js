@@ -22,6 +22,6 @@ statisticsManager.getWeekStatistics("newCases")
         // Wait 5 seconds for the statistics chart to be written on the file system
         await sleep(5000);
         // Tweet the statistics chart
-        var date = getFormattedDate();
+        var date = getFormattedDate(new Date());
         twitterBot.tweetMedia(`../chart_${date}.png`);
     })
