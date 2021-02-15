@@ -9,25 +9,6 @@ class DatabaseManager {
         this.databaseClient = new MongoClient(this.database_uri, { useNewUrlParser: true, useUnifiedTopology: true });
     }
 
-    connect() {
-        return new Promise(async (successCallback, failureCallback) => {
-            try {
-                await this.databaseClient.connect();
-                successCallback("Connected to mongodb database");
-            } catch (err) {
-                failureCallback(err);
-            }
-        })
-    }
-
-    disconnect() {
-        try {
-            this.databaseClient.close();
-        } catch (err) {
-            console.log(err.stack);
-        }
-    }
-
     selectDatabase(databaseName) {
         const database = this.databaseClient.db(databaseName);
         return database;
@@ -39,33 +20,40 @@ class DatabaseManager {
     }
 
     async insertValue(databaseName, collectionName, value) {
-        try {
-            const database = this.selectDatabase(databaseName);
-            const collection = this.selectCollection(database, collectionName);
-            const insertFeedBack = await collection.insertOne(value);
-            console.log(insertFeedBack);
-        } catch (err) {
-            console.log(err.stack);
-        }
+        this.databaseClient.connect(async () => {
+            try {
+                const database = this.selectDatabase(databaseName);
+                const collection = this.selectCollection(database, collectionName);
+                const insertFeedBack = await collection.insertOne(value);
+                console.log(insertFeedBack);
+            } catch (err) {
+                console.log(err.stack);
+            }
+            this.databaseClient.close();
+        })
     }
 
-    async getAllDocumentsBetweenDates(databaseName, collectionName, dateStart, dateEnd) {
-        try {
-            const database = this.selectDatabase(databaseName);
-            const collection = this.selectCollection(database, collectionName);
+    getAllDocumentsBetweenDates(databaseName, collectionName, dateStart, dateEnd) {
+        return new Promise((resolve, reject) => {
+            this.databaseClient.connect(async () => {
+                try {
+                    const database = this.selectDatabase(databaseName);
+                    const collection = this.selectCollection(database, collectionName);
 
-            var documents = await collection.find({
-                "date": {
-                    '$gte': dateStart,
-                    '$lt': dateEnd
+                    var documents = await collection.find({
+                        "date": {
+                            '$gte': dateStart,
+                            '$lt': dateEnd
+                        }
+                    }).toArray();
+                    resolve(documents);
+
+                } catch (err) {
+                    console.log(err.stack);
                 }
-            }).toArray();
-            console.log(documents);
-            return documents;
-
-        } catch (err) {
-            console.log(err.stack);
-        }
+                this.databaseClient.close();
+            })
+        })
     }
 
 }
