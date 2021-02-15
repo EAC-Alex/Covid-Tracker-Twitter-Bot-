@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv').config({ path: __dirname + '/./../.env' })
 
 module.exports = {
     // All these values can be found in the details of your twitter developper account

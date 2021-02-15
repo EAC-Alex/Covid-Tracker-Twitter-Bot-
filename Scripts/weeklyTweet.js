@@ -1,11 +1,11 @@
 // Class import
-const TwitterBot = require('./TwitterBot.js');
-const StatisticsManager = require('./StatisticsManager.js');
-const ChartManager = require('./ChartManager.js');
+const TwitterBot = require('../TwitterBot/TwitterBot.js');
+const StatisticsManager = require('../Statistics/StatisticsManager.js');
+const ChartManager = require('../Statistics/ChartManager.js');
 
 // utils function import
-const getFormattedDate = require('./utils/getFormattedDate.js');
-const sleep = require('./utils/sleep.js');
+const getFormattedDate = require('../utils/getFormattedDate.js');
+const sleep = require('../utils/sleep.js');
 
 // Objects instanciation
 let twitterBot = new TwitterBot();
@@ -23,5 +23,5 @@ statisticsManager.getWeekStatistics("newCases")
         await sleep(5000);
         // Tweet the statistics chart
         var date = getFormattedDate();
-        twitterBot.tweetMedia(`chart_${date}.png`);
+        twitterBot.tweetMedia(`../chart_${date}.png`);
     })
