@@ -20,7 +20,7 @@ class ChartManager {
     }
 
     async downloadChart() {
-        var date = getFormattedDate();
+        var date = getFormattedDate(new Date());
         Promise.resolve(this.chart.toFile(`../chart_${date}.png`));
     }
 
