@@ -1,6 +1,7 @@
 var twit = require('twit');
 var fs = require('fs');
 var config = require('./twitter_api_tokens.js');
+const getFormattedDate = require('../utils/getFormattedDate');
 
 class twitterBot {
     constructor() {
@@ -28,8 +29,16 @@ class twitterBot {
     }
 
     tweetText(values) {
+        var date = new Date();
+        date.setDate(date.getDate() - 1);
+        date = getFormattedDate(date);
+        console.log(date)
         var params = {
-            status: "Nombre total de cas : " + values.totalCases + " (" + values.newCases + ")\r\n" + "Décès : " + values.totalDeaths + " (" + values.newDeaths + ")\r\n"
+            status: (
+                "Nombre total de cas : " + values.totalCases + " (" + values.newCases + ")\r\n" +
+                "Décès : " + values.totalDeaths + " (" + values.newDeaths + ")\r\n\r\n" +
+                "--- Données du " + date + " ---"
+            )
         }
         this.twitterModule.post('statuses/update', params, function (err, data, response) { console.log(data) });
     }
