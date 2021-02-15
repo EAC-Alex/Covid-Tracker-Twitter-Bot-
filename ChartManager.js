@@ -24,13 +24,13 @@ class ChartManager {
         Promise.resolve(this.chart.toFile(`chart_${date}.png`));
     }
 
-    createChart() {
+    createChart(labelChart, dataChart) {
         this.chart.setConfig({
             type: 'bar',
             data: {
                 labels: ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'],
                 datasets: [
-                    { type: 'line', fill: false, label: 'Nouveaux cas recensés', data: [100, 400, 200, 400, 700] }
+                    { type: 'line', fill: false, label: labelChart, data: dataChart }
                 ]
             }
         });
