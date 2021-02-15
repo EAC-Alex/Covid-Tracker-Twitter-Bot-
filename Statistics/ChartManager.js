@@ -1,7 +1,7 @@
 const QuickChart = require('quickchart-js');
 const fs = require('fs');
 const request = require('request');
-const getFormattedDate = require('./utils/getFormattedDate');
+const getFormattedDate = require('../utils/getFormattedDate');
 
 class ChartManager {
 
@@ -21,7 +21,7 @@ class ChartManager {
 
     async downloadChart() {
         var date = getFormattedDate();
-        Promise.resolve(this.chart.toFile(`chart_${date}.png`));
+        Promise.resolve(this.chart.toFile(`../chart_${date}.png`));
     }
 
     createChart(labelChart, dataChart) {

@@ -1,7 +1,7 @@
 // Class import
-const TwitterBot = require('./TwitterBot.js');
-const DataGetter = require('./DataGetter.js');
-const StatisticsManager = require('./StatisticsManager.js');
+const TwitterBot = require('../TwitterBot/TwitterBot.js');
+const DataGetter = require('../Data/DataGetter.js');
+const StatisticsManager = require('../Statistics/StatisticsManager.js');
 
 // Objects instanciation
 let twitterBot = new TwitterBot();
