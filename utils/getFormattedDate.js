@@ -1,7 +1,6 @@
 
 
-function getFormattedDate() {
-    var date = new Date();
+function getFormattedDate(date) {
     var day = '' + date.getDate();
     var month = '' + (date.getMonth() + 1);
     var year = '' + date.getFullYear();
