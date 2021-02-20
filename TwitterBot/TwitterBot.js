@@ -28,19 +28,24 @@ class twitterBot {
         })
     }
 
-    tweetText(values) {
+    tweetText(data) {
         var date = new Date();
         date.setDate(date.getDate() - 1);
         date = getFormattedDate(date);
-        console.log(date)
-        var params = {
-            status: (
-                "Nombre total de cas : " + values.totalCases + " (" + values.newCases + ")\r\n" +
-                "Décès : " + values.totalDeaths + " (" + values.newDeaths + ")\r\n\r\n" +
-                "--- Données du " + date + " ---"
-            )
+
+        var tweetText = "Nombre total de cas : " + data.covid_stats.total_cases + " (" + data.covid_stats.new_cases + ")\r\n" +
+                        "Décès : " + data.covid_stats.total_deaths + " (" + data.covid_stats.new_deaths + ")\r\n" +
+                        ((data.vaccinations_stats === undefined)
+                            ? "\r\n\r\n"
+                            : "Nombre de personnes vaccinées : " + data.vaccinations_stats.people_vaccinated + " (+" + data.vaccinations_stats.people_vaccinated_increase + ")\r\n\r\n"
+                        ) +
+                        "--- Données du " + date + " ---";
+
+        var params = { 
+            status: tweetText
         }
-        this.twitterModule.post('statuses/update', params, function (err, data, response) { console.log(data) });
+
+        this.twitterModule.post('statuses/update', params, function (err, apiData, response) { console.log(apiData) });
     }
 }
 

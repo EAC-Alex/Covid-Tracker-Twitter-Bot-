@@ -1,7 +1,12 @@
-var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+const csv = require('csv-string');
+const getFormattedDate = require('../utils/getFormattedDate.js');
+
 
 class dataGetter {
-    parsedData;
+
+    worldometersData;
+    vaccinationsData;
 
     constructor() { }
 
@@ -12,7 +17,7 @@ class dataGetter {
         return xmlHttp.responseText;
     }
 
-    parseHttpRequest(rawHttpData) {
+    parseHttpRequestWorldometersData(rawHttpData) {
         // regex
         const regexLocateBelgium = /Belgium.*?<\/tr>/si;
         const regexLocateValues = />.*</g;
@@ -28,35 +33,57 @@ class dataGetter {
             // formatted value : 123
         }
 
+
+        var worldometersData = {
+            total_cases: parsedDataValues[1],
+            new_cases: parsedDataValues[2],
+            total_deaths: parsedDataValues[3],
+            new_deaths: parsedDataValues[4]
+        }
+
         // return data
-        return parsedDataValues;
+        return worldometersData;
     }
 
-    getData_totalCases() {
-        return this.parsedData[1];
-    }
-    getData_newCases() {
-        return this.parsedData[2];
-    }
-    getData_totalDeaths() {
-        return this.parsedData[3];
-    }
-    getData_newDeaths() {
-        return this.parsedData[4];
-    }
-    getData() {
-        var data = {
-            totalCases: this.getData_totalCases(),
-            newCases: this.getData_newCases(),
-            totalDeaths: this.getData_totalDeaths(),
-            newDeaths: this.getData_newDeaths()
+    parseHttpRequestVaccinationsData(rawHttpData) {
+        const vaccinationsDataArray = csv.parse(rawHttpData);
+        var lastVaccinationData = vaccinationsDataArray[vaccinationsDataArray.length - 1];
+        var beforeLastVaccinationData = vaccinationsDataArray[vaccinationsDataArray.length - 2];
+        
+        // Hardcoded structure of csv data
+        var lastVaccinationData = {
+            location: lastVaccinationData[0],
+            date: lastVaccinationData[1],
+            vaccine_name: lastVaccinationData[2],
+            total_vaccinations: lastVaccinationData[4],
+            people_vaccinated: lastVaccinationData[5],
+            people_vaccinated_increase: lastVaccinationData[5] - beforeLastVaccinationData[5],
+            people_fully_vaccinated: lastVaccinationData[6],
         }
-        return data;
+
+        if (lastVaccinationData.date === getFormattedDate(new Date(), true))
+            return lastVaccinationData;
+        else
+            return undefined;
+        
+    }
+
+    getData() {
+        return {
+            covid_stats: this.worldometersData,
+            vaccinations_stats: this.vaccinationsData
+        };
     }
 
     updateData() {
-        var webRawData = this.httpGet('https://www.worldometers.info/coronavirus/')
-        this.parsedData = this.parseHttpRequest(webRawData);
+
+        //  Worldometers
+        var webWorldometersRawData = this.httpGet('https://www.worldometers.info/coronavirus/')
+        this.worldometersData = this.parseHttpRequestWorldometersData(webWorldometersRawData);
+
+        // Vaccinations
+        var webVaccinationsData = this.httpGet('https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/vaccinations/country_data/Belgium.csv')
+        this.vaccinationsData = this.parseHttpRequestVaccinationsData(webVaccinationsData);
     }
 
 }
