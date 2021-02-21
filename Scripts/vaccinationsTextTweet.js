@@ -14,7 +14,7 @@ dataGetter.updateData();
 var dataCovid = dataGetter.getData();
 
 // Tweet the data
-twitterBot.tweetText(dataCovid);
+twitterBot.tweetVaccinationsText(dataCovid);
 
 // Add the data to the statistics in the database
 statisticsManager.addStatistic(dataCovid);
