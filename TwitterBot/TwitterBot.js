@@ -28,18 +28,29 @@ class twitterBot {
         })
     }
 
-    tweetText(data) {
+    tweetCovidText(data) {
         var date = new Date();
         date.setDate(date.getDate() - 1);
         date = getFormattedDate(date);
 
-        var tweetText = "Nombre total de cas : " + data.covid_stats.total_cases + " (" + data.covid_stats.new_cases + ")\r\n" +
-                        "Décès : " + data.covid_stats.total_deaths + " (" + data.covid_stats.new_deaths + ")\r\n" +
-                        ((data.vaccinations_stats === undefined)
-                            ? "\r\n\r\n"
-                            : "Nombre de personnes vaccinées : " + data.vaccinations_stats.people_vaccinated + " (+" + data.vaccinations_stats.people_vaccinated_increase + ")\r\n\r\n"
-                        ) +
-                        "--- Données du " + date + " ---";
+        var tweetText = `😷 Statistiques vaccinations / ${date} 😷\r\n\r\n`
+                        "⚬ Nombre total de cas : " + data.covid_stats.total_cases + " (" + data.covid_stats.new_cases + ")\r\n" +
+                        "⚬ Décès : " + data.covid_stats.total_deaths + " (" + data.covid_stats.new_deaths + ")\r\n\r\n";
+
+        var params = { 
+            status: tweetText
+        }
+
+        this.twitterModule.post('statuses/update', params, function (err, apiData, response) { console.log(apiData) });
+    }
+
+    tweetVaccinationsText(data) {
+        var date = new Date();
+        date.setDate(date.getDate() - 2);
+        date = getFormattedDate(date);
+
+        var tweetText = `💉 Statistiques vaccinations / ${date} 💉\r\n\r\n` +
+                        "⚬ Nombre de personnes vaccinées : " + data.vaccinations_stats.people_vaccinated + " (+" + data.vaccinations_stats.people_vaccinated_increase + ")\r\n\r\n";
 
         var params = { 
             status: tweetText
