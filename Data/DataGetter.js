@@ -1,6 +1,5 @@
 const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 const csv = require('csv-string');
-const getFormattedDate = require('../utils/getFormattedDate.js');
 
 
 class dataGetter {
@@ -61,10 +60,7 @@ class dataGetter {
             people_fully_vaccinated: lastVaccinationData[6],
         }
 
-        if (lastVaccinationData.date === getFormattedDate(new Date(), true))
-            return lastVaccinationData;
-        else
-            return undefined;
+        return lastVaccinationData;
         
     }
 
