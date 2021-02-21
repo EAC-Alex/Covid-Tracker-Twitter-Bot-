@@ -2,3 +2,5 @@
 .env
 node_modules
 dev-test.js
+package-lock.json
+package.json
