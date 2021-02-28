@@ -8,8 +8,8 @@ You can find this project in use on [@Covid_Infos_BE](https://twitter.com/Covid_
 
 ## Examples of tweets
 
-![first example of tweets](https://github.com/alexandreHenrotte/belgium-covid-tracker/blob/master/tweet_1.png?raw=true)
-![second example of tweets](https://github.com/alexandreHenrotte/belgium-covid-tracker/blob/master/tweet_2.png?raw=true)
+![first example of tweets](https://github.com/alexandreHenrotte/belgium-covid-tracker/blob/master/img/tweet_1.png?raw=true)
+![second example of tweets](https://github.com/alexandreHenrotte/belgium-covid-tracker/blob/master/img/tweet_2.png?raw=true)
 
 ## Data sources
 
