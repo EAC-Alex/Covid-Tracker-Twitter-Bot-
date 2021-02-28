@@ -2,6 +2,8 @@
 
 This project is an automated twitter bot that checks covid statistics in Belgium and put them on twitter every day.
 
+![main image of the project](https://github.com/alexandreHenrotte/belgium-covid-tracker/blob/master/img/main_image.jpg?raw=true)
+
 ### Where can I find it ?
 
 You can find this project in use on [@Covid_Infos_BE](https://twitter.com/Covid_Infos_BE)
