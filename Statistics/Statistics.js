@@ -1,13 +1,13 @@
-const DatabaseManager = require('./DatabaseManager.js');
+const DatabaseManager = require('./DBconnection.js');
 
 
-class StatisticsManager {
+class Statistics {
 
     constructor() {
         this.databaseManager = new DatabaseManager();
     }
 
-    addStatistic(dataCovid) {
+    add(dataCovid) {
         var actualDate = new Date();
         actualDate.setHours(actualDate.getHours() + 1); // Date UTC + 1 (Belgium Time Zone)
 
@@ -18,7 +18,7 @@ class StatisticsManager {
         this.databaseManager.insertValue("belgium-covid-tracker", "statistics", statistics);
     }
 
-    async getWeekStatistics(statisticType) {
+    async get(statisticType) {
         return await new Promise(async (resolve, reject) => {
             var weekStatistics = [];
             var weekDocuments = await this.databaseManager.getWeekDocuments();
@@ -32,4 +32,4 @@ class StatisticsManager {
     }
 }
 
-module.exports = StatisticsManager;
+module.exports = Statistics;

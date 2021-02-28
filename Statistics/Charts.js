@@ -3,19 +3,19 @@ const fs = require('fs');
 const request = require('request');
 const getFormattedDate = require('../utils/getFormattedDate');
 
-class ChartManager {
+class Charts {
 
     constructor() {
         this.chart = new QuickChart();
         this.chartSize = { width: 800, height: 418 }
     }
 
-    setSizeChart() {
+    setSize() {
         this.chart.setWidth(this.chartSize.width);
         this.chart.setHeight(this.chartSize.height);
     }
 
-    getChartUrl() {
+    getUrl() {
         return this.chart.getUrl();
     }
 
@@ -24,7 +24,7 @@ class ChartManager {
         Promise.resolve(this.chart.toFile(`../chart_${date}.png`));
     }
 
-    createChart(labelChart, dataChart) {
+    create(labelChart, dataChart) {
         this.chart.setConfig({
             type: 'bar',
             data: {
@@ -35,7 +35,7 @@ class ChartManager {
             }
         });
 
-        this.setSizeChart();
+        this.setSize();
     }
 }
 
