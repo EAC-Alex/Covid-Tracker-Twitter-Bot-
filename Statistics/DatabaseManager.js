@@ -33,6 +33,16 @@ class DatabaseManager {
         })
     }
 
+    getWeekDocuments() {
+        var todayDate = new Date();
+        todayDate.setHours(todayDate.getHours() + 1); // Date UTC + 1 (Belgium Time Zone)
+        var lastWeekDate = new Date();
+        lastWeekDate.setDate(lastWeekDate.getDate() - 7);
+        lastWeekDate.setHours(lastWeekDate.getHours() + 1); // Date UTC + 1 (Belgium Time Zone)
+        var weekDocuments = this.databaseManager.getAllDocumentsBetweenDates("belgium-covid-tracker", "statistics", lastWeekDate, todayDate)
+        return weekDocuments;
+    }
+
     getAllDocumentsBetweenDates(databaseName, collectionName, dateStart, dateEnd) {
         return new Promise((resolve, reject) => {
             this.databaseClient.connect(async () => {
