@@ -1,7 +1,7 @@
 // Class import
 const TwitterBot = require('../TwitterBot/TwitterBot.js');
-const StatisticsManager = require('../Statistics/StatisticsManager.js');
-const ChartManager = require('../Statistics/ChartManager.js');
+const Statistics = require('../Statistics/Statistics.js');
+const Charts = require('../Statistics/Charts.js');
 
 // utils function import
 const getFormattedDate = require('../utils/getFormattedDate.js');
@@ -9,15 +9,15 @@ const sleep = require('../utils/sleep.js');
 
 // Objects instanciation
 let twitterBot = new TwitterBot();
-let statisticsManager = new StatisticsManager();
-let chartManager = new ChartManager();
+let statistics = new Statistics();
+let charts = new Charts();
 
 // Get week statistics
-statisticsManager.getWeekStatistics("newCases")
+statistics.get("new_cases", 7)
     .then((weekStatistics => {
         // Create the statistics chart and download it locally
-        chartManager.createChart("Nombre de nouveaux cas recensés", weekStatistics);
-        chartManager.downloadChart();
+        charts.create("Nombre de nouveaux cas recensés", weekStatistics);
+        charts.download();
     })).then(async () => {
         // Wait 5 seconds for the statistics chart to be written on the file system
         await sleep(5000);

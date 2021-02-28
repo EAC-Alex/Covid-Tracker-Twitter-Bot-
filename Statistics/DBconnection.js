@@ -19,12 +19,12 @@ class DBconnection {
         return collection;
     }
 
-    async insertValue(databaseName, collectionName, value) {
+    async insert(databaseName, collectionName, data) {
         this.databaseClient.connect(async () => {
             try {
                 const database = this.selectDatabase(databaseName);
                 const collection = this.selectCollection(database, collectionName);
-                const insertFeedBack = await collection.insertOne(value);
+                const insertFeedBack = await collection.insertOne(data);
                 console.log(insertFeedBack);
             } catch (err) {
                 console.log(err.stack);
@@ -39,15 +39,19 @@ class DBconnection {
         var lastWeekDate = new Date();
         lastWeekDate.setDate(lastWeekDate.getDate() - 7);
         lastWeekDate.setHours(lastWeekDate.getHours() + 1); // Date UTC + 1 (Belgium Time Zone)
-        var weekDocuments = this.databaseManager.getAllDocumentsBetweenDates("belgium-covid-tracker", "statistics", lastWeekDate, todayDate)
+        var weekDocuments = this.databaseManager.getDocuments("belgium-covid-tracker", "statistics", lastWeekDate, todayDate)
         return weekDocuments;
     }
 
-    getAllDocumentsBetweenDates(databaseName, collectionName, dateStart, dateEnd) {
+    getDocuments(databaseName, collectionName, dateStart, dateEnd) {
         return new Promise((resolve, reject) => {
             this.databaseClient.connect(async () => {
                 try {
-                    const database = this.selectDatabase(databaseName);
+                    // Set dates to UTC + 1 (Belgium Time Zone)
+                    dateStart.setHours(dateStart.getHours() + 1);
+                    dateEnd.setHours(dateEnd.getHours() + 1);
+
+                    const database = this.selectDB(databaseName);
                     const collection = this.selectCollection(database, collectionName);
 
                     var documents = await collection.find({

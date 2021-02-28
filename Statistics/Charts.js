@@ -19,7 +19,7 @@ class Charts {
         return this.chart.getUrl();
     }
 
-    async downloadChart() {
+    async download() {
         var date = getFormattedDate(new Date());
         Promise.resolve(this.chart.toFile(`../chart_${date}.png`));
     }
@@ -39,4 +39,4 @@ class Charts {
     }
 }
 
-module.exports = ChartManager;
+module.exports = Charts;

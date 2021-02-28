@@ -1,12 +1,12 @@
 // Class import
 const TwitterBot = require('../TwitterBot/TwitterBot.js');
 const DataGetter = require('../Data/DataGetter.js');
-const StatisticsManager = require('../Statistics/StatisticsManager.js');
+const Statistics = require('../Statistics/Statistics.js');
 
 // Objects instanciation
 let twitterBot = new TwitterBot();
 let dataGetter = new DataGetter();
-let statisticsManager = new StatisticsManager();
+let statistics = new Statistics();
 
 
 // Update and retrieve data
@@ -17,4 +17,4 @@ var dataCovid = dataGetter.getData();
 twitterBot.tweetCovidText(dataCovid);
 
 // Add the data to the statistics in the database
-statisticsManager.addStatistic(dataCovid);
+statistics.add(dataCovid);
