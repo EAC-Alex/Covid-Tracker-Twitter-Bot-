@@ -62,7 +62,7 @@ class dataGetter {
             people_vaccinated_increase: lastVaccinationData[5] - beforeLastVaccinationData[5],
             
             people_fully_vaccinated: lastVaccinationData[6],
-            people_full_vaccinated: lastVaccinationData[6] - lastVaccinationData[6]
+            people_fully_vaccinated_increase: lastVaccinationData[6] - beforeLastVaccinationData[6]
         }
 
         return lastVaccinationData;
