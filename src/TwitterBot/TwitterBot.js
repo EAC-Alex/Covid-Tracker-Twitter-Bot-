@@ -35,7 +35,7 @@ class twitterBot {
 
         var tweetText = `😷 Statistiques vaccinations / ${date} 😷\r\n\r\n` +
                         "⚬ Nombre total de cas : " + data.covid_stats.total_cases + " (" + data.covid_stats.new_cases + ")\r\n" +
-                        "⚬ Décès : " + data.covid_stats.total_deaths + " (" + data.covid_stats.new_deaths + ")\r\n\r\n";
+                        "⚬ Décès : " + data.covid_stats.total_deaths + " (" + data.covid_stats.new_deaths + ")";
 
         var params = { 
             status: tweetText
@@ -50,7 +50,9 @@ class twitterBot {
         date = getFormattedDate(date);
 
         var tweetText = `💉 Statistiques vaccinations / ${date} 💉\r\n\r\n` +
-                        "⚬ Nombre de personnes vaccinées : " + data.vaccinations_stats.people_vaccinated + " (+" + data.vaccinations_stats.people_vaccinated_increase + ")\r\n\r\n";
+                        "⚬ Nombre total de doses administrées : " + data.vaccinations_stats.total_vaccinations + " (+" + data.vaccinations_stats.total_vaccinations_increase + ")\r\n";
+                        "⚬ Nombre de personnes complètement vaccinées : " + data.vaccinations_stats.people_fully_vaccinated + " (+" + data.vaccinations_stats.people_full_vaccinated_increase + ")\r\n";
+                        "° Pourcentage de la population complètement vaccinée : " + ((data.vaccinations_stats.people_fully_vaccinated / 11000000) * 100);
 
         var params = { 
             status: tweetText
