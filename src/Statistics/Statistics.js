@@ -18,7 +18,7 @@ class Statistics {
         this.databaseManager.insert("belgium-covid-tracker", "statistics", statistics);
     }
 
-    async get(statisticType, numberOfStatsFromNow) {
+    async get(statisticType, statisticName , numberOfStatsFromNow) {
         return await new Promise(async (resolve, reject) => {
             var todayDate = new Date();
             var lastWeekDate = new Date();
@@ -28,7 +28,7 @@ class Statistics {
             var documents = await this.databaseManager.getDocuments("belgium-covid-tracker", "statistics", lastWeekDate, todayDate);
             console.log(documents)
             documents.forEach(statistic => {
-                var statisticString = statistic.data.covid_stats[statisticType].slice(1).replace(',', ".");
+                var statisticString = statistic.data.covid_stats[statisticType][statisticName].slice(1).replace(',', ".");
                 var statisticFloat = parseFloat(statisticString);
                 statistics.push(statisticFloat);
             })
