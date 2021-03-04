@@ -1,8 +1,8 @@
 var twit = require('twit');
 var fs = require('fs');
-var config = require('./twitter_api_tokens.js');
+var config = require('./twitter_api_tokens');
 const getFormattedDate = require('../utils/getFormattedDate');
-const round = require("./round");
+const round = require("../utils/round");
 
 class twitterBot {
     constructor() {
