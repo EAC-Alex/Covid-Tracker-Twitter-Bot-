@@ -1,10 +1,10 @@
-const DatabaseManager = require('./DBconnection.js');
+const DBconnection = require('./DBconnection.js');
 
 
 class Statistics {
 
     constructor() {
-        this.databaseManager = new DatabaseManager();
+        this.DBconnection = new DBconnection();
     }
 
     add(dataCovid) {
@@ -15,7 +15,7 @@ class Statistics {
             date: actualDate,
             data: dataCovid
         }
-        this.databaseManager.insert("belgium-covid-tracker", "statistics", statistics);
+        this.DBconnection.insert("belgium-covid-tracker", "statistics", statistics);
     }
 
     async get(statisticType, statisticName , numberOfStatsFromNow) {
@@ -25,7 +25,7 @@ class Statistics {
             lastWeekDate.setDate(lastWeekDate.getDate() - numberOfStatsFromNow);
 
             var statistics = [];
-            var documents = await this.databaseManager.getDocuments("belgium-covid-tracker", "statistics", lastWeekDate, todayDate);
+            var documents = await this.DBconnection.getDocuments("belgium-covid-tracker", "statistics", lastWeekDate, todayDate);
             console.log(documents)
             documents.forEach(statistic => {
                 var statisticString = statistic.data.covid_stats[statisticType][statisticName].slice(1).replace(',', ".");
