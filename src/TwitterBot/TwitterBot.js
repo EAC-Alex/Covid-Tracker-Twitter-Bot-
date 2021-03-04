@@ -2,6 +2,7 @@ var twit = require('twit');
 var fs = require('fs');
 var config = require('./twitter_api_tokens.js');
 const getFormattedDate = require('../utils/getFormattedDate');
+const round = require("./round");
 
 class twitterBot {
     constructor() {
@@ -52,7 +53,7 @@ class twitterBot {
         var tweetText = `💉 Statistiques vaccinations / ${date} 💉\r\n\r\n` +
                         "⚬ Nombre total de doses administrées : " + data.vaccinations_stats.total_vaccinations + " (+" + data.vaccinations_stats.total_vaccinations_increase + ")\r\n" +
                         "⚬ Nombre de personnes complètement vaccinées : " + data.vaccinations_stats.people_fully_vaccinated + " (+" + data.vaccinations_stats.people_fully_vaccinated_increase + ")\r\n" +
-                        "⚬ Pourcentage de la population complètement vaccinée : " + (Math.round(((data.vaccinations_stats.people_fully_vaccinated / 11000000) * 100) * 100) / 100)  + "%";
+                        "⚬ Pourcentage de la population complètement vaccinée : " + round((data.vaccinations_stats.people_fully_vaccinated / 11000000) * 100, 2) + "%";
 
         var params = { 
             status: tweetText
