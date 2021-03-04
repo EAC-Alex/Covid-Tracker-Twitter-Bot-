@@ -50,9 +50,9 @@ class twitterBot {
         date = getFormattedDate(date);
 
         var tweetText = `💉 Statistiques vaccinations / ${date} 💉\r\n\r\n` +
-                        "° Pourcentage de la population complètement vaccinée : " + ((data.vaccinations_stats.people_fully_vaccinated / 11000000) * 100);
                         "⚬ Nombre total de doses administrées : " + data.vaccinations_stats.total_vaccinations + " (+" + data.vaccinations_stats.total_vaccinations_increase + ")\r\n" +
                         "⚬ Nombre de personnes complètement vaccinées : " + data.vaccinations_stats.people_fully_vaccinated + " (+" + data.vaccinations_stats.people_fully_vaccinated_increase + ")\r\n" +
+                        "⚬ Pourcentage de la population complètement vaccinée : " + (Math.round(((data.vaccinations_stats.people_fully_vaccinated / 11000000) * 100) * 100) / 100)  + "%";
 
         var params = { 
             status: tweetText
