@@ -54,10 +54,15 @@ class dataGetter {
             location: lastVaccinationData[0],
             date: lastVaccinationData[1],
             vaccine_name: lastVaccinationData[2],
+
             total_vaccinations: lastVaccinationData[4],
+            total_vaccinations_increase: lastVaccinationData[4] - beforeLastVaccinationData[4],
+            
             people_vaccinated: lastVaccinationData[5],
             people_vaccinated_increase: lastVaccinationData[5] - beforeLastVaccinationData[5],
+            
             people_fully_vaccinated: lastVaccinationData[6],
+            people_full_vaccinated: lastVaccinationData[6] - lastVaccinationData[6]
         }
 
         return lastVaccinationData;
