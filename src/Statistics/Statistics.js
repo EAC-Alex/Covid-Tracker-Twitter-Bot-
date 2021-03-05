@@ -26,7 +26,6 @@ class Statistics {
 
             var statistics = [];
             var documents = await this.DBconnection.getDocuments("belgium-covid-tracker", "statistics", lastWeekDate, todayDate);
-            console.log(documents)
             documents.forEach(statistic => {
                 var statisticString = statistic.data[statisticType][statisticName].slice(1).replace(',', ".");
                 var statisticFloat = parseFloat(statisticString);
