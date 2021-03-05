@@ -22,7 +22,7 @@ class DBconnection {
     async insert(databaseName, collectionName, data) {
         this.databaseClient.connect(async () => {
             try {
-                const database = this.selectDatabase(databaseName);
+                const database = this.selectDB(databaseName);
                 const collection = this.selectCollection(database, collectionName);
                 const insertFeedBack = await collection.insertOne(data);
                 console.log(insertFeedBack);
