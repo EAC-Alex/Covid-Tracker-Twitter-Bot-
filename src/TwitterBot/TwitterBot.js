@@ -34,7 +34,7 @@ class twitterBot {
         date.setDate(date.getDate() - 1);
         date = getFormattedDate(date);
 
-        var tweetText = `😷 Statistiques vaccinations / ${date} 😷\r\n\r\n` +
+        var tweetText = `😷 Statistiques vaccinations 😷\r\n\r\n` +
                         "⚬ Nombre total de cas : " + data.covid_stats.total_cases + " (" + data.covid_stats.new_cases + ")\r\n" +
                         "⚬ Décès : " + data.covid_stats.total_deaths + " (" + data.covid_stats.new_deaths + ")";
 
@@ -42,7 +42,16 @@ class twitterBot {
             status: tweetText
         }
 
-        this.twitterModule.post('statuses/update', params, function (err, apiData, response) { console.log(apiData) });
+        this.twitterModule.post('statuses/update', params, (err, apiData, response) => {
+            if (response.statusCode === 200) {
+                var replyText = `Données du : ${date}`
+                this.twitterModule.post(
+                    'statuses/update',
+                    {status: replyText, in_reply_to_status_id: apiData.id_str},
+                    function (err, apiData, response) { console.log(apiData) }
+                )
+            } 
+        });
     }
 
     tweetVaccinationsText(data) {
@@ -50,7 +59,8 @@ class twitterBot {
         date.setDate(date.getDate() - 2);
         date = getFormattedDate(date);
 
-        var tweetText = `💉 Statistiques vaccinations / ${date} 💉\r\n\r\n` +
+
+        var tweetText = `💉 Statistiques vaccinations 💉\r\n\r\n` +
                         "⚬ Nombre total de doses administrées : " + data.vaccinations_stats.total_vaccinations + " (+" + data.vaccinations_stats.total_vaccinations_increase + ")\r\n" +
                         "⚬ Nombre de personnes complètement vaccinées : " + data.vaccinations_stats.people_fully_vaccinated + " (+" + data.vaccinations_stats.people_fully_vaccinated_increase + ")\r\n" +
                         "⚬ Pourcentage de la population complètement vaccinée : " + round((data.vaccinations_stats.people_fully_vaccinated / 11000000) * 100, 2) + "%";
@@ -59,8 +69,18 @@ class twitterBot {
             status: tweetText
         }
 
-        this.twitterModule.post('statuses/update', params, function (err, apiData, response) { console.log(apiData) });
+        this.twitterModule.post('statuses/update', params, (err, apiData, response) => {
+            if (response.statusCode === 200) {
+                var replyText = `Données du : ${date}`
+                this.twitterModule.post(
+                    'statuses/update',
+                    {status: replyText, in_reply_to_status_id: apiData.id_str},
+                    function (err, apiData, response) { console.log(apiData) }
+                )
+            } 
+        });
     }
+
 }
 
 
