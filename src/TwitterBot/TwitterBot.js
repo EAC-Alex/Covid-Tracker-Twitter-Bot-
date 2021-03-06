@@ -42,14 +42,11 @@ class twitterBot {
             status: tweetText
         }
 
+        // Tweet the covid text
         this.twitterModule.post('statuses/update', params, (err, apiData, response) => {
+            // Reply to the tweet with the date of the data if the covid text has been tweeted
             if (response.statusCode === 200) {
-                var replyText = `Données du : ${date}`
-                this.twitterModule.post(
-                    'statuses/update',
-                    {status: replyText, in_reply_to_status_id: apiData.id_str},
-                    function (err, apiData, response) { console.log(apiData) }
-                )
+                this.replyToTweet(`Données du : ${date}`, apiData.id_str);
             } 
         });
     }
@@ -69,16 +66,24 @@ class twitterBot {
             status: tweetText
         }
 
+        // Tweet the vaccinations text
         this.twitterModule.post('statuses/update', params, (err, apiData, response) => {
+            // Reply to the tweet with the date of the data if the vaccinations text has been tweeted
             if (response.statusCode === 200) {
-                var replyText = `Données du : ${date}`
-                this.twitterModule.post(
-                    'statuses/update',
-                    {status: replyText, in_reply_to_status_id: apiData.id_str},
-                    function (err, apiData, response) { console.log(apiData) }
-                )
+                this.replyToTweet(`Données du : ${date}`, apiData.id_str);
             } 
         });
+    }
+
+    replyToTweet(replyText, tweetID) {
+        this.twitterModule.post(
+            'statuses/update',
+            {
+                status: replyText,
+                in_reply_to_status_id: tweetID
+            },
+            function (err, apiData, response) { console.log(apiData) }
+        )
     }
 
 }
