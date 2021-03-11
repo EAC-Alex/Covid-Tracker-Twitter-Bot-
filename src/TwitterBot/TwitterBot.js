@@ -34,7 +34,7 @@ class twitterBot {
         date.setDate(date.getDate() - 1);
         date = getFormattedDate(date);
 
-        var tweetText = `😷 Statistiques vaccinations 😷\r\n\r\n` +
+        var tweetText = `😷 Statistiques coronavirus 😷\r\n\r\n` +
                         "⚬ Nombre total de cas : " + data.covid_stats.total_cases + " (" + data.covid_stats.new_cases + ")\r\n" +
                         "⚬ Décès : " + data.covid_stats.total_deaths + " (" + data.covid_stats.new_deaths + ")";
 
