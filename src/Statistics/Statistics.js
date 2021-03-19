@@ -1,4 +1,5 @@
 const DBconnection = require('./DBconnection.js');
+const getFormattedDate = require('../utils/getFormattedDate.js');
 
 
 class Statistics {
@@ -18,7 +19,7 @@ class Statistics {
         this.DBconnection.insert("belgium-covid-tracker", "statistics", statistics);
     }
 
-    async get(statisticType, statisticName , numberOfStatsFromNow) {
+    async get(statisticType, statisticName, numberOfStatsFromNow) {
         return await new Promise(async (resolve, reject) => {
             var todayDate = new Date();
             var lastWeekDate = new Date();
@@ -27,9 +28,19 @@ class Statistics {
             var statistics = [];
             var documents = await this.DBconnection.getDocuments("belgium-covid-tracker", "statistics", lastWeekDate, todayDate);
             documents.forEach(statistic => {
-                var statisticString = statistic.data[statisticType][statisticName].slice(1).replace(',', ".");
-                var statisticFloat = parseFloat(statisticString);
-                statistics.push(statisticFloat);
+                var statisticDate = getFormattedDate(statistic.date);
+
+                if (statisticName === "new_cases") {
+                    var statisticData = parseFloat(statistic.data[statisticType][statisticName].replace(',', "").replace("+", "")); // new_cases data have particular format in the database
+                }
+                else {
+                    var statisticData = parseFloat(formatNewCases(statistic.data[statisticType][statisticName]));
+                }
+
+                statistics.push({
+                    date: statisticDate,
+                    data: statisticData
+                });
             })
             resolve(statistics);
         })
