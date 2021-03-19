@@ -24,13 +24,20 @@ class Charts {
         Promise.resolve(this.chart.toFile(`../chart_${date}.png`));
     }
 
-    create(labelChart, dataChart) {
+    create(labelChart, statistics) {
+        var dates = [];
+        var data = [];
+        statistics.forEach(statistic => {
+            dates.push(statistic.date);
+            data.push(statistic.data);
+        })
+
         this.chart.setConfig({
             type: 'bar',
             data: {
-                labels: ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'],
+                labels: dates,
                 datasets: [
-                    { type: 'line', fill: false, label: labelChart, data: dataChart }
+                    { type: 'line', fill: false, label: labelChart, data: data }
                 ]
             }
         });
