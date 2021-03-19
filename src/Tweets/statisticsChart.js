@@ -13,7 +13,7 @@ let statistics = new Statistics();
 let charts = new Charts();
 
 // Get week statistics
-statistics.get("covid_stats", "total_cases", 7)
+statistics.get("covid_stats", "new_cases", 7)
     .then((weekStatistics => {
         // Create the statistics chart and download it locally
         charts.create("Nombre de nouveaux cas recensés", weekStatistics);
