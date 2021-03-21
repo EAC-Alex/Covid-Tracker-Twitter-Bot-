@@ -35,10 +35,10 @@ class twitterBot {
         date = getFormattedDate(date);
 
         var tweetText = `😷 Statistiques coronavirus 😷\r\n\r\n` +
-                        "⚬ Nombre total de cas : " + data.covid_stats.total_cases + " (" + data.covid_stats.new_cases + ")\r\n" +
-                        "⚬ Décès : " + data.covid_stats.total_deaths + " (" + data.covid_stats.new_deaths + ")";
+            "⚬ Nombre total de cas : " + data.covid_stats.total_cases + (data.covid_stats.new_cases === null ? "" : " (" + data.covid_stats.new_cases + ")") + "\r\n" +
+            "⚬ Décès : " + data.covid_stats.total_deaths + (data.covid_stats.new_deaths === null ? "" : " (" + data.covid_stats.new_deaths + ")");
 
-        var params = { 
+        var params = {
             status: tweetText
         }
 
@@ -47,7 +47,7 @@ class twitterBot {
             // Reply to the tweet with the date of the data if the covid text has been tweeted
             if (response.statusCode === 200) {
                 this.replyToTweet(`Données du : ${date}`, apiData.id_str);
-            } 
+            }
         });
     }
 
@@ -58,11 +58,11 @@ class twitterBot {
 
 
         var tweetText = `💉 Statistiques vaccinations 💉\r\n\r\n` +
-                        "⚬ Nombre total de doses administrées : " + data.vaccinations_stats.total_vaccinations + " (+" + data.vaccinations_stats.total_vaccinations_increase + ")\r\n" +
-                        "⚬ Nombre de personnes complètement vaccinées : " + data.vaccinations_stats.people_fully_vaccinated + " (+" + data.vaccinations_stats.people_fully_vaccinated_increase + ")\r\n" +
-                        "⚬ Pourcentage de la population complètement vaccinée : " + round((data.vaccinations_stats.people_fully_vaccinated / 11000000) * 100, 2) + "%";
+            "⚬ Nombre total de doses administrées : " + data.vaccinations_stats.total_vaccinations + " (+" + data.vaccinations_stats.total_vaccinations_increase + ")\r\n" +
+            "⚬ Nombre de personnes complètement vaccinées : " + data.vaccinations_stats.people_fully_vaccinated + " (+" + data.vaccinations_stats.people_fully_vaccinated_increase + ")\r\n" +
+            "⚬ Pourcentage de la population complètement vaccinée : " + round((data.vaccinations_stats.people_fully_vaccinated / 11000000) * 100, 2) + "%";
 
-        var params = { 
+        var params = {
             status: tweetText
         }
 
@@ -71,7 +71,7 @@ class twitterBot {
             // Reply to the tweet with the date of the data if the vaccinations text has been tweeted
             if (response.statusCode === 200) {
                 this.replyToTweet(`Données du : ${date}`, apiData.id_str);
-            } 
+            }
         });
     }
 
