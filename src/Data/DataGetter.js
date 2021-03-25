@@ -34,10 +34,11 @@ class dataGetter {
 
 
         var worldometersData = {
+            data_date: this.DateOfData("covid_data"),
             total_cases: parsedDataValues[1],
-            new_cases: parsedDataValues[2],
+            new_cases: parsedDataValues[2] === "" ? null : parsedDataValues[2],
             total_deaths: parsedDataValues[3],
-            new_deaths: parsedDataValues[4]
+            new_deaths: parsedDataValues[4] === "" ? null : parsedDataValues[4]
         }
 
         // return data
@@ -48,25 +49,41 @@ class dataGetter {
         const vaccinationsDataArray = csv.parse(rawHttpData);
         var lastVaccinationData = vaccinationsDataArray[vaccinationsDataArray.length - 1];
         var beforeLastVaccinationData = vaccinationsDataArray[vaccinationsDataArray.length - 2];
-        
+
         // Hardcoded structure of csv data
         var lastVaccinationData = {
+            data_date: this.DateOfData("vaccinations_data"),
             location: lastVaccinationData[0],
-            date: lastVaccinationData[1],
             vaccine_name: lastVaccinationData[2],
 
             total_vaccinations: lastVaccinationData[4],
             total_vaccinations_increase: lastVaccinationData[4] - beforeLastVaccinationData[4],
-            
+
             people_vaccinated: lastVaccinationData[5],
             people_vaccinated_increase: lastVaccinationData[5] - beforeLastVaccinationData[5],
-            
+
             people_fully_vaccinated: lastVaccinationData[6],
             people_fully_vaccinated_increase: lastVaccinationData[6] - beforeLastVaccinationData[6]
         }
 
         return lastVaccinationData;
-        
+
+    }
+
+    DateOfData(dataType) {
+        var todayDate = new Date();
+
+        // Covid datas have a delay of 1 day
+        if (dataType === "covid_data") {
+            var dayIntervals = 1;
+        }
+        // Vaccinations data have a delay of 2 days
+        else if (dataType === "vaccinations_data") {
+            var dayIntervals = 2;
+        }
+
+        todayDate.setDate(todayDate.getDate() - dayIntervals);
+        return todayDate;
     }
 
     getData() {

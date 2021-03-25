@@ -13,15 +13,15 @@ let statistics = new Statistics();
 let charts = new Charts();
 
 // Get week statistics
-statistics.get("covid_stats", "new_cases", 7)
+statistics.get("vaccinations_stats", "total_vaccinations_increase", 7)
     .then((weekStatistics => {
         // Create the statistics chart and download it locally
-        charts.create("Nombre de nouveaux cas recensés", weekStatistics);
+        charts.create("Nombre de doses administrés", weekStatistics);
         charts.download();
     })).then(async () => {
         // Wait 5 seconds for the statistics chart to be written on the file system
         await sleep(5000);
         // Tweet the statistics chart
         var date = getFormattedDate(new Date());
-        twitterBot.tweetMedia(`../chart_${date}.png`);
+        twitterBot.tweetMedia(`../chart_${date}.png`, 'Graphe sur le nombre de nouveaux cas recensé cette semaine');
     })
