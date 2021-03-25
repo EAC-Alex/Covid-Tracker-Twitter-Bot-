@@ -37,7 +37,7 @@ class Charts {
             data: {
                 labels: dates,
                 datasets: [
-                    { type: 'line', fill: false, label: labelChart, data: data }
+                    { type: 'bar', fill: false, label: labelChart, data: data }
                 ]
             }
         });
