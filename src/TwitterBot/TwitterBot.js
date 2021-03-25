@@ -11,7 +11,7 @@ class twitterBot {
 
 
 
-    tweetMedia(mediaPath) {
+    tweetMedia(mediaPath, tweetText) {
         var mediaEncoded = fs.readFileSync(mediaPath, { encoding: 'base64' })
 
         this.twitterModule.post('media/upload', { media_data: mediaEncoded }, (err, data, response) => {
@@ -20,7 +20,7 @@ class twitterBot {
 
             this.twitterModule.post('media/metadata/create', meta_params, (err, data, response) => {
                 if (!err) {
-                    var params = { status: 'Graphe sur les nouveau cas recensé cette semaine', media_ids: [mediaIdStr] }
+                    var params = { status: tweetText, media_ids: [mediaIdStr] }
                     this.twitterModule.post('statuses/update', params, (err, data, response) => {
                         console.log(data)
                     })

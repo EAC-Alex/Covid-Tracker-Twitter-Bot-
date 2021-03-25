@@ -23,5 +23,5 @@ statistics.get("vaccinations_stats", "total_vaccinations_increase", 7)
         await sleep(5000);
         // Tweet the statistics chart
         var date = getFormattedDate(new Date());
-        // twitterBot.tweetMedia(`../chart_${date}.png`);
+        twitterBot.tweetMedia(`../chart_${date}.png`, 'Graphe sur le nombre de nouveaux cas recensé cette semaine');
     })
