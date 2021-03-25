@@ -34,6 +34,7 @@ class dataGetter {
 
 
         var worldometersData = {
+            data_date: this.DateOfData("covid_data"),
             total_cases: parsedDataValues[1],
             new_cases: parsedDataValues[2] === "" ? null : parsedDataValues[2],
             total_deaths: parsedDataValues[3],
@@ -51,8 +52,8 @@ class dataGetter {
 
         // Hardcoded structure of csv data
         var lastVaccinationData = {
+            data_date: this.DateOfData("vaccinations_data"),
             location: lastVaccinationData[0],
-            date: lastVaccinationData[1],
             vaccine_name: lastVaccinationData[2],
 
             total_vaccinations: lastVaccinationData[4],
@@ -67,6 +68,22 @@ class dataGetter {
 
         return lastVaccinationData;
 
+    }
+
+    DateOfData(dataType) {
+        var todayDate = new Date();
+
+        // Covid datas have a delay of 1 day
+        if (dataType === "covid_data") {
+            var dayIntervals = 1;
+        }
+        // Vaccinations data have a delay of 2 days
+        else if (dataType === "vaccinations_data") {
+            var dayIntervals = 2;
+        }
+
+        todayDate.setDate(todayDate.getDate() - dayIntervals);
+        return todayDate;
     }
 
     getData() {
