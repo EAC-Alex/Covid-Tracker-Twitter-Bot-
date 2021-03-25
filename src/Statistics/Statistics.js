@@ -34,7 +34,7 @@ class Statistics {
                     var statisticData = parseFloat(statistic.data[statisticType][statisticName].replace(',', "").replace("+", "")); // new_cases data have particular format in the database
                 }
                 else {
-                    var statisticData = parseFloat(formatNewCases(statistic.data[statisticType][statisticName]));
+                    var statisticData = parseFloat(statistic.data[statisticType][statisticName]);
                 }
 
                 statistics.push({
