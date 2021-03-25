@@ -15,3 +15,6 @@ var dataCovid = dataGetter.getData();
 
 // Tweet the data
 twitterBot.tweetVaccinationsText(dataCovid);
+
+// Add the data to the statistics in the database
+statistics.add(dataCovid);
