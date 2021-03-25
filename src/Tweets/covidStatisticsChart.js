@@ -16,12 +16,12 @@ let charts = new Charts();
 statistics.get("covid_stats", "new_cases", 7)
     .then((weekStatistics => {
         // Create the statistics chart and download it locally
-        charts.create("Nombre de nouveaux cas recensés par jour", weekStatistics);
+        charts.create("Nombre de nouveaux cas recensés", weekStatistics);
         charts.download();
     })).then(async () => {
         // Wait 5 seconds for the statistics chart to be written on the file system
         await sleep(5000);
         // Tweet the statistics chart
         var date = getFormattedDate(new Date());
-        twitterBot.tweetMedia(`../chart_${date}.png`);
+        twitterBot.tweetMedia(`../chart_${date}.png`, 'Graphe sur le nombre de nouveaux cas recensés cette semaine');
     })

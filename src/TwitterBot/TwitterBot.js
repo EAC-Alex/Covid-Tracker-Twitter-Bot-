@@ -35,8 +35,8 @@ class twitterBot {
         date = getFormattedDate(date);
 
         var tweetText = `😷 Statistiques coronavirus 😷\r\n\r\n` +
-            "⚬ Nombre total de cas : " + data.covid_stats.total_cases + (data.covid_stats.new_cases === null ? "" : " (" + data.covid_stats.new_cases + ")") + "\r\n" +
-            "⚬ Décès : " + data.covid_stats.total_deaths + (data.covid_stats.new_deaths === null ? "" : " (" + data.covid_stats.new_deaths + ")");
+            "⚬ Nombre total de cas : " + data.covid_stats.total_cases + (data.covid_stats.new_cases === null ? "(Pas de nouvelles données sur le nombre de nouveaux cas)" : " (" + data.covid_stats.new_cases + ")") + "\r\n" +
+            "⚬ Décès : " + data.covid_stats.total_deaths + (data.covid_stats.new_deaths === null ? "(Pas de nouvelles données sur le nombre de nouveaux décès)" : " (" + data.covid_stats.new_deaths + ")");
 
         var params = {
             status: tweetText

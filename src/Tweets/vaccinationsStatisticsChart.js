@@ -16,7 +16,7 @@ let charts = new Charts();
 statistics.get("vaccinations_stats", "total_vaccinations_increase", 7)
     .then((weekStatistics => {
         // Create the statistics chart and download it locally
-        charts.create("Nombre de doses administrés par jour", weekStatistics);
+        charts.create("Nombre de doses administrés", weekStatistics);
         charts.download();
     })).then(async () => {
         // Wait 5 seconds for the statistics chart to be written on the file system
