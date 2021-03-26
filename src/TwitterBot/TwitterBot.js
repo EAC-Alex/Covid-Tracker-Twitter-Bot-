@@ -75,6 +75,21 @@ class twitterBot {
         });
     }
 
+    tweetDaysSinceFirstContainment() {
+        var containmentDate = new Date("03/17/2020");
+        var todayDate = new Date();
+
+        var differenceInMilliseconds = todayDate.getTime() - containmentDate.getTime();
+        var differenceInDays = Math.round(differenceInMilliseconds / (1000 * 3600 * 24));
+
+        var params = {
+            status: "Il y a " + differenceInDays + " jours, la Belgique entrait dans son tout premier confinement."
+        }
+
+        // Tweet the number of days elapsed since containment in Belgium
+        this.twitterModule.post('statuses/update', params, (err, apiData, response) => console.log(response));
+    }
+
     replyToTweet(replyText, tweetID) {
         this.twitterModule.post(
             'statuses/update',
