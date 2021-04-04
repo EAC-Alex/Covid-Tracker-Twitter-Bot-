@@ -29,16 +29,7 @@ class Statistics {
             var statistics = [];
             var documents = await this.DBconnection.getDocuments("belgium-covid-tracker", "statistics", lastWeekDate, todayDate);
             documents.forEach(statistic => {
-                console.log(statistic)
-                var statisticDate = statistic.data[statisticType].data_date;
-
-                // We need to add one day for all of theses statistics because they are based on the previous day
-                if (["new_cases", "new_deaths", "total_vaccinations_increase", "people_vaccinated_increase", "people_fully_vaccinated_increase"].includes(statisticName)) {
-                    statisticDate.setDate(statisticDate.getDate() - 1);
-                }
-
-                var statisticDate = getFormattedDate(statisticDate);
-
+                var statisticDate = getFormattedDate(statistic.data[statisticType].data_date);
 
                 // new_cases data have particular format in the database
                 if (statisticName === "new_cases") {
