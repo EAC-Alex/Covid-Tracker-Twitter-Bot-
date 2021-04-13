@@ -39,7 +39,7 @@ class Statistics {
                     var statisticData = parseFloat(statistic.data[statisticType][statisticName]);
                 }
 
-                // Push the statistic (with his date and his data) in the list of statistics
+                // Push the statistic (with its date and its data) in the list of statistics
                 statistics.push({
                     date: statisticDate,
                     data: statisticData
