@@ -7,7 +7,23 @@ class dataGetter {
     worldometersData;
     vaccinationsData;
 
-    constructor() { }
+    getData() {
+        this.updateData()
+        return {
+            covid_stats: this.worldometersData,
+            vaccinations_stats: this.vaccinationsData
+        };
+    }
+
+    updateData() {
+        //  Worldometers
+        var webWorldometersRawData = this.httpGet('https://www.worldometers.info/coronavirus/')
+        this.worldometersData = this.parseHttpRequestWorldometersData(webWorldometersRawData);
+
+        // Vaccinations
+        var webVaccinationsData = this.httpGet('https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/vaccinations/country_data/Belgium.csv')
+        this.vaccinationsData = this.parseHttpRequestVaccinationsData(webVaccinationsData);
+    }
 
     httpGet(theUrl) {
         var xmlHttp = new XMLHttpRequest();
@@ -84,24 +100,6 @@ class dataGetter {
 
         todayDate.setDate(todayDate.getDate() - dayIntervals);
         return todayDate;
-    }
-
-    getData() {
-        return {
-            covid_stats: this.worldometersData,
-            vaccinations_stats: this.vaccinationsData
-        };
-    }
-
-    updateData() {
-
-        //  Worldometers
-        var webWorldometersRawData = this.httpGet('https://www.worldometers.info/coronavirus/')
-        this.worldometersData = this.parseHttpRequestWorldometersData(webWorldometersRawData);
-
-        // Vaccinations
-        var webVaccinationsData = this.httpGet('https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/vaccinations/country_data/Belgium.csv')
-        this.vaccinationsData = this.parseHttpRequestVaccinationsData(webVaccinationsData);
     }
 
 }

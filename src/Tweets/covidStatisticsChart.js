@@ -16,7 +16,7 @@ let charts = new Charts();
 statistics.get("covid_stats", "new_cases", 7)
     .then((weekStatistics => {
         // Create the statistics chart and download it locally
-        charts.create("Nombre de nouveaux cas recensés", weekStatistics);
+        charts.create("Nombre de nouveaux cas recensés", 418, 800, weekStatistics);
         charts.download();
     })).then(async () => {
         // Wait 5 seconds for the statistics chart to be written on the file system

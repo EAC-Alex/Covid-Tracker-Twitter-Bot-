@@ -9,8 +9,7 @@ let dataGetter = new DataGetter();
 let statistics = new Statistics();
 
 
-// Update and retrieve data
-dataGetter.updateData();
+// Retrieve data
 var dataCovid = dataGetter.getData();
 
 // Tweet the data
