@@ -7,24 +7,15 @@ class Charts {
 
     constructor() {
         this.chart = new QuickChart();
-        this.chartSize = { width: 800, height: 418 }
+        this.chartSize = { height: 418, width: 800 }
     }
 
-    setSize() {
-        this.chart.setWidth(this.chartSize.width);
-        this.chart.setHeight(this.chartSize.height);
+    create(labelChart, height, width, statistics) {
+        this.setDataGraph(labelChart, statistics);
+        this.setSize(height, width);
     }
 
-    getUrl() {
-        return this.chart.getUrl();
-    }
-
-    async download() {
-        var date = getFormattedDate(new Date());
-        Promise.resolve(this.chart.toFile(`../chart_${date}.png`));
-    }
-
-    create(labelChart, statistics) {
+    setDataGraph(labelChart, statistics) {
         var dates = [];
         var data = [];
         statistics.forEach(statistic => {
@@ -41,9 +32,18 @@ class Charts {
                 ]
             }
         });
-
-        this.setSize();
     }
+
+    setSize() {
+        this.chart.setWidth(this.chartSize.width);
+        this.chart.setHeight(this.chartSize.height);
+    }
+
+    async download() {
+        var date = getFormattedDate(new Date());
+        Promise.resolve(this.chart.toFile(`../chart_${date}.png`));
+    }
+
 }
 
 module.exports = Charts;

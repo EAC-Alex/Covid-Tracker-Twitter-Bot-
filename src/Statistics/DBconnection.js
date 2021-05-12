@@ -9,16 +9,6 @@ class DBconnection {
         this.databaseClient = new MongoClient(this.database_uri, { useNewUrlParser: true, useUnifiedTopology: true });
     }
 
-    selectDB(databaseName) {
-        const database = this.databaseClient.db(databaseName);
-        return database;
-    }
-
-    selectCollection(database, collectionName) {
-        const collection = database.collection(collectionName);
-        return collection;
-    }
-
     async insert(databaseName, collectionName, data) {
         this.databaseClient.connect(async () => {
             try {
@@ -68,6 +58,16 @@ class DBconnection {
                 this.databaseClient.close();
             })
         })
+    }
+
+    selectDB(databaseName) {
+        const database = this.databaseClient.db(databaseName);
+        return database;
+    }
+
+    selectCollection(database, collectionName) {
+        const collection = database.collection(collectionName);
+        return collection;
     }
 
 }

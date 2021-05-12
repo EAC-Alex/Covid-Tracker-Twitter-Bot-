@@ -5,11 +5,10 @@ const getFormattedDate = require('../utils/getFormattedDate');
 const round = require("../utils/round");
 
 class twitterBot {
+
     constructor() {
         this.twitterModule = new twit(config);
     }
-
-
 
     tweetMedia(mediaPath, tweetText) {
         var mediaEncoded = fs.readFileSync(mediaPath, { encoding: 'base64' })
