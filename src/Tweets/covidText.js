@@ -6,7 +6,6 @@ const Statistics = require('../Statistics/Statistics.js');
 // Objects instanciation
 let twitterBot = new TwitterBot();
 let dataGetter = new DataGetter();
-let statistics = new Statistics();
 
 
 // Retrieve data
