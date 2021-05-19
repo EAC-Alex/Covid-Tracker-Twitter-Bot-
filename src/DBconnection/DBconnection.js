@@ -9,36 +9,40 @@ class DBconnection {
         this.databaseClient = new MongoClient(this.database_uri, { useNewUrlParser: true, useUnifiedTopology: true });
     }
 
-    async insert(databaseName, collectionName, data) {
-        this.databaseClient.connect(async () => {
+    connect() {
+        this.connection = this.databaseClient.connect();
+    }
+
+    async disconnect() {
+        await this.databaseClient.close();
+    }
+
+    insert(databaseName, collectionName, data) {
             try {
-                const database = this.selectDB(databaseName);
-                const collection = this.selectCollection(database, collectionName);
-                const insertFeedBack = await collection.insertOne(data);
-                console.log(insertFeedBack);
+                this.connection.then( async () => {
+                    const database = this.selectDB(databaseName);
+                    const collection = this.selectCollection(database, collectionName);
+                    const insertFeedBack = await collection.insertOne(data);
+                    console.log(insertFeedBack);
+                })
             } catch (err) {
                 console.log(err.stack);
             }
-            this.databaseClient.close();
-        })
     }
 
     getLastDocument(databaseName, collectionName) {
-        return new Promise((resolve, reject) => {
-            this.databaseClient.connect(async () => {
-                try {
+        return new Promise( (resolve, reject) => {
+            try {
+                this.connection.then( async () => {
                     const database = this.selectDB(databaseName);
                     const collection = this.selectCollection(database, collectionName);
 
                     var documentsSorted = await collection.find({}).sort({date:-1}).limit(1).toArray();
                     resolve(documentsSorted[0]);
-
-                } catch (err) {
-                    console.log(err.stack);
-                } finally {
-                    this.databaseClient.close();
-                }
-            })
+                })
+            } catch (err) {
+                console.log(err.stack);
+            }
         })
     }
 
@@ -54,8 +58,8 @@ class DBconnection {
 
     getDocuments(databaseName, collectionName, dateStart, dateEnd) {
         return new Promise((resolve, reject) => {
-            this.databaseClient.connect(async () => {
-                try {
+            try {
+                this.connection.then( async () => {
                     // Set dates to UTC + 1 (Belgium Time Zone)
                     dateStart.setHours(dateStart.getHours() + 1);
                     dateEnd.setHours(dateEnd.getHours() + 1);
@@ -70,13 +74,10 @@ class DBconnection {
                         }
                     }).toArray();
                     resolve(documents);
-
-                } catch (err) {
-                    console.log(err.stack);
-                } finally {
-                    this.databaseClient.close();
-                }
-            })
+                })
+            } catch (err) {
+                console.log(err.stack);
+            }
         })
     }
 
