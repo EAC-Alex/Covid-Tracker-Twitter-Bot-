@@ -9,7 +9,7 @@ let dataGetter = new DataGetter();
 
 
 // Retrieve data
-var dataCovid = dataGetter.getData();
+var todayData = dataGetter.getData();
 
 // Tweet the data
-twitterBot.tweetCovidText(dataCovid);
+twitterBot.tweetCovidText(todayData);
