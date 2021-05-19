@@ -54,8 +54,9 @@ class DBconnection {
 
                 } catch (err) {
                     console.log(err.stack);
+                } finally {
+                    this.databaseClient.close();
                 }
-                this.databaseClient.close();
             })
         })
     }
