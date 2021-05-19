@@ -1,5 +1,6 @@
 // Class import
 const TwitterBot = require('../TwitterBot/TwitterBot.js');
+const DBconnection = require('../DBconnection/DBconnection.js');
 const Statistics = require('../Statistics/Statistics.js');
 const Charts = require('../Statistics/Charts.js');
 
@@ -9,8 +10,12 @@ const sleep = require('../utils/sleep.js');
 
 // Objects instanciation
 let twitterBot = new TwitterBot();
-let statistics = new Statistics();
+let dbConnection = new DBconnection();
+let statistics = new Statistics(dbConnection);
 let charts = new Charts();
+
+// Connection to the database
+dbConnection.connect()
 
 // Get week statistics
 statistics.get("vaccinations_stats", "total_vaccinations_increase", 7)
@@ -25,3 +30,6 @@ statistics.get("vaccinations_stats", "total_vaccinations_increase", 7)
         var date = getFormattedDate(new Date());
         twitterBot.tweetMedia(`../chart_${date}.png`, 'Graphe sur le nombre de nouveaux cas recensé cette semaine');
     })
+
+// Disconnection to the database
+dbConnection.disconnect();

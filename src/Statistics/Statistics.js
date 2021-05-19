@@ -1,11 +1,10 @@
-const DBconnection = require('./DBconnection.js');
 const getFormattedDate = require('../utils/getFormattedDate.js');
 
 
 class Statistics {
 
-    constructor() {
-        this.DBconnection = new DBconnection();
+    constructor(dbConnection) {
+        this.DBconnection = dbConnection
     }
 
     add(dataCovid) {

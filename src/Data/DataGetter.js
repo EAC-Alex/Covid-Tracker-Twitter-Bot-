@@ -50,7 +50,7 @@ class dataGetter {
 
 
         var worldometersData = {
-            data_date: this.DateOfData("covid_data"),
+            data_date: this.worldometersSourceDate(),
             total_cases: parsedDataValues[1],
             new_cases: parsedDataValues[2] === "" ? null : parsedDataValues[2],
             total_deaths: parsedDataValues[3],
@@ -63,43 +63,41 @@ class dataGetter {
 
     parseHttpRequestVaccinationsData(rawHttpData) {
         const vaccinationsDataArray = csv.parse(rawHttpData);
-        var lastVaccinationData = vaccinationsDataArray[vaccinationsDataArray.length - 1];
-        var beforeLastVaccinationData = vaccinationsDataArray[vaccinationsDataArray.length - 2];
+        var lastVaccinationDataRow = vaccinationsDataArray[vaccinationsDataArray.length - 1];
+        var beforeLastVaccinationDataRow = vaccinationsDataArray[vaccinationsDataArray.length - 2];
 
         // Hardcoded structure of csv data
         var lastVaccinationData = {
-            data_date: this.DateOfData("vaccinations_data"),
-            location: lastVaccinationData[0],
-            vaccine_name: lastVaccinationData[2],
+            location: lastVaccinationDataRow[0],
+            data_date: this.vaccinationsDataSourceDate(lastVaccinationDataRow),
+            vaccine_name: lastVaccinationDataRow[2],
 
-            total_vaccinations: lastVaccinationData[4],
-            total_vaccinations_increase: lastVaccinationData[4] - beforeLastVaccinationData[4],
+            total_vaccinations: lastVaccinationDataRow[4],
+            total_vaccinations_increase: lastVaccinationDataRow[4] - beforeLastVaccinationDataRow[4],
 
-            people_vaccinated: lastVaccinationData[5],
-            people_vaccinated_increase: lastVaccinationData[5] - beforeLastVaccinationData[5],
+            people_vaccinated: lastVaccinationDataRow[5],
+            people_vaccinated_increase: lastVaccinationDataRow[5] - beforeLastVaccinationDataRow[5],
 
-            people_fully_vaccinated: lastVaccinationData[6],
-            people_fully_vaccinated_increase: lastVaccinationData[6] - beforeLastVaccinationData[6]
+            people_fully_vaccinated: lastVaccinationDataRow[6],
+            people_fully_vaccinated_increase: lastVaccinationDataRow[6] - beforeLastVaccinationDataRow[6]
         }
 
         return lastVaccinationData;
 
     }
 
-    DateOfData(dataType) {
+    // Date of worldometers data is yesterday
+    worldometersSourceDate() {
         var todayDate = new Date();
 
-        // Covid datas have a delay of 1 day
-        if (dataType === "covid_data") {
-            var dayIntervals = 1;
-        }
-        // Vaccinations data have a delay of 2 days
-        else if (dataType === "vaccinations_data") {
-            var dayIntervals = 2;
-        }
-
-        todayDate.setDate(todayDate.getDate() - dayIntervals);
+        todayDate.setDate(todayDate.getDate() - 1);
         return todayDate;
+    }
+
+    // Date of vaccinations data changes, we've got to find it in a specific column of the row and format it for the program
+    vaccinationsDataSourceDate(dataRow) {
+        var rawDate = dataRow[1]; // "YYYY-MM-DD"
+        return new Date(rawDate);
     }
 
 }

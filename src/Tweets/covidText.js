@@ -6,11 +6,10 @@ const Statistics = require('../Statistics/Statistics.js');
 // Objects instanciation
 let twitterBot = new TwitterBot();
 let dataGetter = new DataGetter();
-let statistics = new Statistics();
 
 
 // Retrieve data
-var dataCovid = dataGetter.getData();
+var todayData = dataGetter.getData();
 
 // Tweet the data
-twitterBot.tweetCovidText(dataCovid);
+twitterBot.tweetCovidText(todayData);
