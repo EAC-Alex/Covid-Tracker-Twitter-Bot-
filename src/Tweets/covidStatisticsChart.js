@@ -1,5 +1,6 @@
 // Class import
 const TwitterBot = require('../TwitterBot/TwitterBot.js');
+const DBconnection = require('./DBconnection.js');
 const Statistics = require('../Statistics/Statistics.js');
 const Charts = require('../Statistics/Charts.js');
 
@@ -9,7 +10,8 @@ const sleep = require('../utils/sleep.js');
 
 // Objects instanciation
 let twitterBot = new TwitterBot();
-let statistics = new Statistics();
+let dbConnection = new DBconnection();
+let statistics = new Statistics(dbConnection);
 let charts = new Charts();
 
 // Get week statistics
