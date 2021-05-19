@@ -1,6 +1,6 @@
 // Class import
 const TwitterBot = require('../TwitterBot/TwitterBot.js');
-const DBconnection = require('./DBconnection.js');
+const DBconnection = require('../DBconnection/DBconnection.js');
 const Statistics = require('../Statistics/Statistics.js');
 const Charts = require('../Statistics/Charts.js');
 
@@ -13,6 +13,9 @@ let twitterBot = new TwitterBot();
 let dbConnection = new DBconnection();
 let statistics = new Statistics(dbConnection);
 let charts = new Charts();
+
+// Connection to the database
+dbConnection.connect()
 
 // Get week statistics
 statistics.get("covid_stats", "new_cases", 7)
@@ -27,3 +30,6 @@ statistics.get("covid_stats", "new_cases", 7)
         var date = getFormattedDate(new Date());
         twitterBot.tweetMedia(`../chart_${date}.png`, 'Graphe sur le nombre de nouveaux cas recensés cette semaine');
     })
+
+// Disconnection to the database
+dbConnection.disconnect();
