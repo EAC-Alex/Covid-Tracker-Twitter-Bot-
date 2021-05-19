@@ -23,6 +23,25 @@ class DBconnection {
         })
     }
 
+    getLastDocument(databaseName, collectionName) {
+        return new Promise((resolve, reject) => {
+            this.databaseClient.connect(async () => {
+                try {
+                    const database = this.selectDB(databaseName);
+                    const collection = this.selectCollection(database, collectionName);
+
+                    var documentsSorted = await collection.find({}).sort({date:-1}).limit(1).toArray();
+                    resolve(documentsSorted[0]);
+
+                } catch (err) {
+                    console.log(err.stack);
+                } finally {
+                    this.databaseClient.close();
+                }
+            })
+        })
+    }
+
     getWeekDocuments() {
         var todayDate = new Date();
         todayDate.setHours(todayDate.getHours() + 1); // Date UTC + 1 (Belgium Time Zone)
