@@ -59,7 +59,7 @@ class twitterBot {
         var tweetText = `💉 Statistiques vaccinations 💉\r\n\r\n` +
             "⚬ Nombre total de doses administrées : " + data.vaccinations_stats.total_vaccinations + "\r\n" +
             "⚬ Nombre de personnes complètement vaccinées : " + data.vaccinations_stats.people_fully_vaccinated + "\r\n" +
-            "⚬ Pourcentage de la population complètement vaccinée : " + round((data.vaccinations_stats.people_fully_vaccinated / 11000000) * 100, 2) + "%";
+            "⚬ Pourcentage de la population complètement vaccinée : " + round((data.vaccinations_stats.people_fully_vaccinated / 11492000) * 100, 2) + "%";
 
         var params = {
             status: tweetText
