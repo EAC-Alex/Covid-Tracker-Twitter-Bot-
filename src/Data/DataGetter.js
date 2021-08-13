@@ -62,28 +62,22 @@ class dataGetter {
     }
 
     parseHttpRequestVaccinationsData(rawHttpData) {
+        // Get the csv data in an array
         const vaccinationsDataArray = csv.parse(rawHttpData);
-        var lastVaccinationDataRow = vaccinationsDataArray[vaccinationsDataArray.length - 1];
-        var beforeLastVaccinationDataRow = vaccinationsDataArray[vaccinationsDataArray.length - 2];
 
-        // Hardcoded structure of csv data
-        var lastVaccinationData = {
-            location: lastVaccinationDataRow[0],
-            data_date: this.vaccinationsDataSourceDate(lastVaccinationDataRow),
-            vaccine_name: lastVaccinationDataRow[2],
+        // Take the last and the before last vaccination data
+        const [data_date, total_vaccinations, people_vaccinated, people_fully_vaccinated, vaccine, location, source_url, total_boosters] = vaccinationsDataArray[vaccinationsDataArray.length - 1];
+        var lastVaccinationData = {data_date, total_vaccinations, people_vaccinated, people_fully_vaccinated, vaccine, location, source_url, total_boosters};
+        const [data_date2, total_vaccinations2, people_vaccinated2, people_fully_vaccinated2, vaccine2, location2, source_url2, total_boosters2] = vaccinationsDataArray[vaccinationsDataArray.length - 2];
+        var beforeLastVaccinationData = {total_vaccinations2, people_vaccinated2, people_fully_vaccinated2};
 
-            total_vaccinations: lastVaccinationDataRow[4],
-            total_vaccinations_increase: lastVaccinationDataRow[4] - beforeLastVaccinationDataRow[4],
-
-            people_vaccinated: lastVaccinationDataRow[5],
-            people_vaccinated_increase: lastVaccinationDataRow[5] - beforeLastVaccinationDataRow[5],
-
-            people_fully_vaccinated: lastVaccinationDataRow[6],
-            people_fully_vaccinated_increase: lastVaccinationDataRow[6] - beforeLastVaccinationDataRow[6]
-        }
+        // Add new data to the last vaccination data
+        lastVaccinationData.data_date =  this.vaccinationsDataSourceDate(lastVaccinationData.data_date);
+        lastVaccinationData.total_vaccinations_increase = lastVaccinationData.total_vaccinations - beforeLastVaccinationData.total_vaccinations2;
+        lastVaccinationData.people_vaccinated_increase = lastVaccinationData.people_vaccinated - beforeLastVaccinationData.people_fully_vaccinated2;
+        lastVaccinationData.people_fully_vaccinated_increase = lastVaccinationData.people_fully_vaccinated - beforeLastVaccinationData.people_fully_vaccinated2;
 
         return lastVaccinationData;
-
     }
 
     // Date of worldometers data is yesterday
@@ -95,9 +89,8 @@ class dataGetter {
     }
 
     // Date of vaccinations data changes, we've got to find it in a specific column of the row and format it for the program
-    vaccinationsDataSourceDate(dataRow) {
-        var rawDate = dataRow[1]; // "YYYY-MM-DD"
-        return new Date(rawDate);
+    vaccinationsDataSourceDate(date) {
+        return new Date(date);
     }
 
 }
